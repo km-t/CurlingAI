@@ -1,0 +1,10 @@
+CurlingAI/Debug/
+CurlingAI/Release/
+CurlingAI/x64/
+CurlingAI/*.vcxproj
+CurlingAI/*.filters
+*.sln
+*.exe
+*.ilk
+*.pdb
+.vs/
