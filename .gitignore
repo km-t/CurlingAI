@@ -8,3 +8,4 @@ CurlingAI/*.filters
 *.ilk
 *.pdb
 .vs/
+Debug/logs.csv
