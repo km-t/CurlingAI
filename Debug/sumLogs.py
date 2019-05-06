@@ -5,6 +5,7 @@ file_list = glob.glob('*.csv')
 sumfile = "logs.csv"
 
 for filename in file_list:
+    print(filename)
     with open(filename, 'r') as f:
         lines = f.readlines()
 
