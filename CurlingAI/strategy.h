@@ -30,7 +30,7 @@ int getStoneNum(const GAMESTATE* const gs);
 bool isGuarded(const GAMESTATE* const gs, int rank,int angle);
 std::string getVectorofStone(const GAMESTATE* const gs, int rank);
 int getScoreofVector(const GAMESTATE* const gs, int rank);
-int getStoneNOfromRank(const GAMESTATE* const gs, int NO);
+int getStoneNOfromRank(const GAMESTATE* const gs, int ra);
 int getBoardScore(const GAMESTATE* const gs);
 int getShotCount(const GAMESTATE* const gs);
 int getMyStoneNum(const GAMESTATE* const gs);

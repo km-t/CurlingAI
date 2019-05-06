@@ -204,6 +204,10 @@ bool processCommand(char *command)
 			string v = getVectorofStone(&GameState, r);
 			string fileName = "C:\\Users\\81802\\Desktop\\CurlingAI\\Debug\\vec" + v + ".csv";
 			//cerr << v << "‚É‘‚«ž‚ñ‚¾" << endl;
+			int a = getStoneNOfromRank(&GameState, r);
+			int isMine = 0;
+			if (a % 2 == GameState.WhiteToMove)isMine = 0;
+			else isMine = 1;
 			for (int p = 0; p < powerNum; p++) {
 				for (int a = 0; a < angleNum; a++) {
 					for (int w = 0; w < whereNum; w++) {
@@ -213,7 +217,7 @@ bool processCommand(char *command)
 						int allScore = getBoardScore(&pGameState);
 						ofstream ofs;
 						ofs.open(fileName, ios::app);
-						ofs << getMyStoneNum(&GameState) << getOpoStoneNum(&GameState) << where[w] << "," << angle[a] << "," << power[p] << "," << allScore << endl;
+						ofs <<getMyStoneNum(&GameState) <<","<< getOpoStoneNum(&GameState) <<","<<isMine<<","<<v<<","<< where[w] << "," << angle[a] << "," << power[p] << "," << allScore << endl;
 						ofs.close();
 					}
 				}
@@ -222,7 +226,7 @@ bool processCommand(char *command)
 //---------------------------------------------------------------------------------------------------------------------
 	
 		//takeStone(&GameState, &vec, 0, 16, 0, 0);
-
+		cerr << GameState.WhiteToMove << endl << endl;
 		vec.x = 0;
 		vec.y = 0;
 		vec.angle = 0;

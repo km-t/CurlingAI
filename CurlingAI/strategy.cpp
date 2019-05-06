@@ -306,11 +306,11 @@ int getScoreofVector(const GAMESTATE* const gs, int rank) {
 	return score;
 }
 
-int getStoneNOfromRank(const GAMESTATE* const gs, int NO) {
+int getStoneNOfromRank(const GAMESTATE* const gs, int ra) {
 	int ranks[16];
 	get_ranking(ranks, gs);
 	for (int i = 0; i < 16; i++) {
-		if (ranks[i] == NO)return i;
+		if (ranks[i] == ra)return i;
 	}
 }
 
