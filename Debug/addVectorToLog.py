@@ -13,7 +13,6 @@ for filename in file_list:
     
     with open(filename, "w") as a:
         a.write("")
-    with open(filename, "a")as ff:
         for line in lines:
             line = file + line
             ff.write(line)
