@@ -213,7 +213,7 @@ bool processCommand(char *command)
 						int allScore = getBoardScore(&pGameState);
 						ofstream ofs;
 						ofs.open(fileName, ios::app);
-						ofs << where[w] << "," << angle[a] << "," << power[p] << "," << allScore << endl;
+						ofs << getMyStoneNum(&GameState) << getOpoStoneNum(&GameState) << where[w] << "," << angle[a] << "," << power[p] << "," << allScore << endl;
 						ofs.close();
 					}
 				}

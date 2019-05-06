@@ -337,3 +337,18 @@ int getShotCount(const GAMESTATE* const gs) {
 	}
 	return count;
 }
+
+int getMyStoneNum(const GAMESTATE* const gs) {
+	int count = 0;
+	for (int i = 0; i < 8; i++) {
+		if (gs->body[gs->WhiteToMove + 2 * i][0] != 0 && gs->body[gs->WhiteToMove + 2 * i][1] != 0)count++;
+	}
+	return count;
+}
+int getOpoStoneNum(const GAMESTATE* const gs) {
+	int count = 0;
+	for (int i = 0; i < 8; i++) {
+		if (gs->body[(gs->WhiteToMove + 1) % 2 + 2 * i][0] != 0 && gs->body[(gs->WhiteToMove + 1) % 2 + 2 * i][1] != 0)count++;
+	}
+	return count;
+}

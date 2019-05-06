@@ -33,3 +33,5 @@ int getScoreofVector(const GAMESTATE* const gs, int rank);
 int getStoneNOfromRank(const GAMESTATE* const gs, int NO);
 int getBoardScore(const GAMESTATE* const gs);
 int getShotCount(const GAMESTATE* const gs);
+int getMyStoneNum(const GAMESTATE* const gs);
+int getOpoStoneNum(const GAMESTATE * const gs);
