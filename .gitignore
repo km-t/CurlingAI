@@ -9,3 +9,8 @@ CurlingAI/*.filters
 *.pdb
 .vs/
 Debug/logs.csv
+Debug/allLogs.csv
+Debug/convertLogs/logs.csv
+Debug/convertLogs/allLogs.csv
+Debug/vec20190503
+Debug/vec20190508

@@ -204,9 +204,9 @@ bool processCommand(char *command)
 			string v = getVectorofStone(&GameState, r);
 			string fileName = "C:\\Users\\81802\\Desktop\\CurlingAI\\Debug\\vec" + v + ".csv";
 			//cerr << v << "‚É‘‚«ž‚ñ‚¾" << endl;
-			int a = getStoneNOfromRank(&GameState, r);
+			int stoneNo = getStoneNOfromRank(&GameState, r);
 			int isMine = 0;
-			if (a % 2 == GameState.WhiteToMove)isMine = 0;
+			if (stoneNo % 2 == GameState.WhiteToMove)isMine = 0;
 			else isMine = 1;
 			for (int p = 0; p < powerNum; p++) {
 				for (int a = 0; a < angleNum; a++) {
@@ -218,6 +218,16 @@ bool processCommand(char *command)
 						ofstream ofs;
 						ofs.open(fileName, ios::app);
 						ofs <<getMyStoneNum(&GameState) <<","<< getOpoStoneNum(&GameState) <<","<<isMine<<","<<v<<","<< where[w] << "," << angle[a] << "," << power[p] << "," << allScore << endl;
+						ofs.close();
+						ofs.open("C:\\Users\\81802\\Desktop\\CurlingAI\\Debug\\allLogs.csv", ios::app);
+						for (int i = 0; i < 16; i++) {
+							ofs << GameState.body[i][0] << "," << GameState.body[i][1] << ",";
+						}
+						ofs << where[w] << "," << angle[a] << "," << power[p] << ",";
+						for (int i = 0; i < 16; i++) {
+							if (i != 15)ofs << pGameState.body[i][0] << "," << pGameState.body[i][1] << ",";
+							else ofs << pGameState.body[i][0] << "," << pGameState.body[i][1] << "," << stoneNo << isMine<< endl;
+						}
 						ofs.close();
 					}
 				}
