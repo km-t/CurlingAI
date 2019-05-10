@@ -201,8 +201,8 @@ bool processCommand(char *command)
 		int rankNum = getShotCount(&GameState);
 
 		for (int r = 0; r < rankNum; r++) {
-			string v = getVectorofStone(&GameState, r);
-			string fileName = "C:\\Users\\81802\\Desktop\\CurlingAI\\Debug\\vec" + v + ".csv";
+			//string v = getVectorofStone(&GameState, r);
+			//string fileName = "C:\\Users\\81802\\Desktop\\CurlingAI\\Debug\\vec" + v + ".csv";
 			//cerr << v << "‚É‘‚«ž‚ñ‚¾" << endl;
 			int stoneNo = getStoneNOfromRank(&GameState, r);
 			int isMine = 0;
@@ -214,11 +214,13 @@ bool processCommand(char *command)
 						takeStone(&GameState, &vec, r, power[p], angle[a], where[w]);
 						GAMESTATE pGameState = GameState;
 						Simulation(&pGameState, vec, 0.30f, NULL, -1);
-						int allScore = getBoardScore(&pGameState);
 						ofstream ofs;
+						/*
+						int allScore = getBoardScore(&pGameState);
 						ofs.open(fileName, ios::app);
 						ofs <<getMyStoneNum(&GameState) <<","<< getOpoStoneNum(&GameState) <<","<<isMine<<","<<v<<","<< where[w] << "," << angle[a] << "," << power[p] << "," << allScore << endl;
 						ofs.close();
+						*/
 						ofs.open("C:\\Users\\81802\\Desktop\\CurlingAI\\Debug\\allLogs.csv", ios::app);
 						for (int i = 0; i < 16; i++) {
 							ofs << GameState.body[i][0] << "," << GameState.body[i][1] << ",";
@@ -226,7 +228,7 @@ bool processCommand(char *command)
 						ofs << where[w] << "," << angle[a] << "," << power[p] << ",";
 						for (int i = 0; i < 16; i++) {
 							if (i != 15)ofs << pGameState.body[i][0] << "," << pGameState.body[i][1] << ",";
-							else ofs << pGameState.body[i][0] << "," << pGameState.body[i][1] << "," << stoneNo << isMine<< endl;
+							else ofs << pGameState.body[i][0] << "," << pGameState.body[i][1] << "," << stoneNo << endl;
 						}
 						ofs.close();
 					}
