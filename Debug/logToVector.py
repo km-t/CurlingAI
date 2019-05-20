@@ -2,13 +2,15 @@ import numpy as np
 import pandas as pd
 import math
 import tkinter as tk
+
+
 def outStone(stone):
     root = tk.Tk()
     width = int(4.75*50)
     height = int(11.28*50)
     x = 2.375
     y = 4.88
-    print(width,height)
+    print(width, height)
     root.geometry("237x564")
     canvas = tk.Canvas(root, width=width, height=height)
     canvas.create_oval((2.375-1.83)*50,(4.88-1.83)*50,(2.375+1.83)*50,(4.88+1.83)*50,fill='blue')
@@ -60,7 +62,8 @@ def getVector(board, target, isMine):
     11~22:y
     23~28:dist
     29:isMine
-    30~41:angle
+    30,31:isGuarded
+    32~44:angle
     """
     ans = ""
     rank = getRank(board, target)
@@ -69,112 +72,112 @@ def getVector(board, target, isMine):
     degree = getDegree(x,y)
     dist = getDist([x,y])
     if rank==0:
-        ans+="1,0,0,"
+        ans+="100"
     elif rank==1:
-        ans+="0,1,0,"
+        ans+="010"
     elif rank==2:
-        ans+="0,0,1,"
+        ans+="001"
     else:
-        ans+="0,0,0,"
+        ans+="000"
 
     if x<2.375-1.83:
-        ans += "1,0,0,0,0,0,0,0,"
+        ans += "10000000"
     elif 2.375-1.83<=x<2.375-1.22:
-        ans += "0,1,0,0,0,0,0,0,"
+        ans += "01000000"
     elif 2.375-1.22<=x<2.375-0.61:
-        ans += "0,0,1,0,0,0,0,0,"
+        ans += "00100000"
     elif 2.375-0.61<=x<2.375:
-        ans += "0,0,0,1,0,0,0,0,"
+        ans += "00010000"
     elif 2.375<=x<2.375+0.61:
-        ans += "0,0,0,0,1,0,0,0,"
+        ans += "00001000"
     elif 2.375+0.61<=x<2.375+1.22:
-        ans += "0,0,0,0,0,1,0,0,"
+        ans += "00000100"
     elif 2.375+1.22<=x<2.375+1.83:
-        ans += "0,0,0,0,0,0,1,0,"
+        ans += "00000010"
     elif 2.375+1.83<=x:
-        ans += "0,0,0,0,0,0,0,1,"
+        ans += "00000001"
     else:
-        ans += "0,0,0,0,0,0,0,0,"
+        ans += "00000000"
 
     if y<4.88-1.83:
-        ans += "1,0,0,0,0,0,0,0,0,0,0,0,"
+        ans += "100000000000"
     elif 4.88-1.83<=y<4.88-1.22:
-        ans += "0,1,0,0,0,0,0,0,0,0,0,0,"
+        ans += "010000000000"
     elif 4.88-1.22<=y<4.88-0.61:
-        ans += "0,0,1,0,0,0,0,0,0,0,0,0,"
+        ans += "001000000000"
     elif 4.88-0.61<=y<4.88:
-        ans += "0,0,0,1,0,0,0,0,0,0,0,0,"
+        ans += "000100000000"
     elif 4.88<=y<4.88+0.61:
-        ans += "0,0,0,0,1,0,0,0,0,0,0,0,"
+        ans += "000010000000"
     elif 4.88+0.61<=y<4.88+1.22:
-        ans += "0,0,0,0,0,1,0,0,0,0,0,0,"
+        ans += "000001000000"
     elif 4.88+1.22<=y<4.88+1.83:
-        ans += "0,0,0,0,0,0,1,0,0,0,0,0,"
+        ans += "000000100000"
     elif 4.88+1.83<=y<4.88+2.68:
-        ans += "0,0,0,0,0,0,0,1,0,0,0,0,"
+        ans += "000000010000"
     elif 4.88+2.68<=y<4.88+3.53:
-        ans += "0,0,0,0,0,0,0,0,1,0,0,0,"
+        ans += "000000001000"
     elif 4.88+3.53<=y<4.88+4.38:
-        ans += "0,0,0,0,0,0,0,0,0,1,0,0,"
+        ans += "000000000100"
     elif 4.88+4.38<=y<4.88+5.23:
-        ans += "0,0,0,0,0,0,0,0,0,0,1,0,"
+        ans += "000000000010"
     elif 4.88+5.23<=y:
-        ans += "0,0,0,0,0,0,0,0,0,0,0,1,"
+        ans += "000000000001"
     else:
-        ans += "0,0,0,0,0,0,0,0,0,0,0,0,"
+        ans += "000000000000"
     
     if dist<0.61:
-        ans += "1,0,0,0,0,0,"
+        ans += "100000"
     elif 0.61<=dist<1.22:
-        ans += "0,1,0,0,0,0,"
+        ans += "010000"
     elif 1.22<=dist<1.83:
-        ans += "0,0,1,0,0,0,"
+        ans += "001000"
     elif 1.83<=dist<3.05:
-        ans += "0,0,0,1,0,0,"
+        ans += "000100"
     elif 3.05<=dist<4.27:
-        ans += "0,0,0,0,1,0,"
+        ans += "000010"
     elif 4.27<=dist<5.49:
-        ans += "0,0,0,0,0,1,"
+        ans += "000001"
     else:
-        ans += "0,0,0,0,0,0,"
+        ans += "000000"
 
     isGuarded = False
     if isGuarded:
-        ans +="1,"
+        ans +="1"
     else:
-        ans+="0,"
+        ans+="0"
 
     if target%2==isMine:
-        ans += "1,0,"
+        ans += "1"
     else:
-        ans += "0,1,"
+        ans += "0"
 
     if 0<=degree<30:
-        ans += "1,0,0,0,0,0,0,0,0,0,0,0,"
+        ans += "100000000000"
     elif 30<=degree<60:
-        ans += "0,1,0,0,0,0,0,0,0,0,0,0,"
+        ans += "010000000000"
     elif 60<=degree<90:
-        ans += "0,0,1,0,0,0,0,0,0,0,0,0,"
+        ans += "001000000000"
     elif 90<=degree<120:
-        ans += "0,0,0,1,0,0,0,0,0,0,0,0,"
+        ans += "000100000000"
     elif 120<=degree<150:
-        ans += "0,0,0,0,1,0,0,0,0,0,0,0,"
+        ans += "000010000000"
     elif 150<=degree<180:
-        ans += "0,0,0,0,0,1,0,0,0,0,0,0,"
+        ans += "000001000000"
     elif 180<=degree<210:
-        ans += "0,0,0,0,0,0,1,0,0,0,0,0,"
+        ans += "000000100000"
     elif 210<=degree<240:
-        ans += "0,0,0,0,0,0,0,1,0,0,0,0,"
+        ans += "000000010000"
     elif 240<=degree<270:
-        ans += "0,0,0,0,0,0,0,0,1,0,0,0,"
+        ans += "000000001000"
     elif 270<=degree<300:
-        ans += "0,0,0,0,0,0,0,0,0,1,0,0,"
+        ans += "000000000100"
     elif 300<=degree<330:
-        ans += "0,0,0,0,0,0,0,0,0,0,1,0,"
+        ans += "000000000010"
     elif 330<=degree<360:
-        ans += "0,0,0,0,0,0,0,0,0,0,0,1,"
+        ans += "000000000001"
     else:
-        ans += "0,0,0,0,0,0,0,0,0,0,0,0,"
+        ans += "000000000000"
     return ans
 
 def getRank(board, target):
@@ -233,7 +236,14 @@ df = pd.read_csv("./allLogs.csv")
 """
 preboard(32), w, a, p, nextBoard(32)
 """
-for line in range(len(df)):
+from tqdm import tqdm
+
+with open("./count.txt", 'r') as f:
+    startCount = int(f.read())
+count = startCount
+print(startCount)
+df = df[startCount:]
+for line in tqdm(range(len(df))):
     preBoard = []
     nextBoard = []
     w = int(df.iloc[line,32])
@@ -248,6 +258,9 @@ for line in range(len(df)):
         vec = getVector(preBoard, target, isMine)
         score=getScore(nextBoard, isMine)-getScore(preBoard, isMine)
 
-        ans = str(vec)+str(w)+","+str(a)+","+str(p)+","+str(score)+"\n"
+        ans = str(vec)+","+str(w)+","+str(a)+","+str(p)+","+str(score)+"\n"
         with open("./logs.csv", 'a') as f:
             f.write(ans)
+            count+=1
+            with open("./count.txt", "w")as ff:
+                ff.write(str(count))
