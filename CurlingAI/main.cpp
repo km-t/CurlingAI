@@ -221,7 +221,7 @@ bool processCommand(char *command)
 						ofs <<getMyStoneNum(&GameState) <<","<< getOpoStoneNum(&GameState) <<","<<isMine<<","<<v<<","<< where[w] << "," << angle[a] << "," << power[p] << "," << allScore << endl;
 						ofs.close();
 						*/
-						ofs.open("C:\\Users\\81802\\Desktop\\CurlingAI\\Debug\\allLogs.csv", ios::app);
+						ofs.open("C:\\Users\\ahara\\Desktop\\CurlingAI\\Debug\\allLogs.csv", ios::app);
 						for (int i = 0; i < 16; i++) {
 							ofs << GameState.body[i][0] << "," << GameState.body[i][1] << ",";
 						}
