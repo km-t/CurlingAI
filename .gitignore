@@ -10,7 +10,11 @@ CurlingAI/*.filters
 .vs/
 Debug/logs.csv
 Debug/allLogs.csv
+Debug/logsVer2.csv
+Debug/allLogsVer2.csv
 Debug/convertLogs/logs.csv
 Debug/convertLogs/allLogs.csv
+Debug/convertLogsVer2/logsVer2.csv
+Debug/convertLogsVer2/allLogsVer2.csv
 Debug/vec20190503
 Debug/vec20190508

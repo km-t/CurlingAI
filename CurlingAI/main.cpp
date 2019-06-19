@@ -199,42 +199,37 @@ bool processCommand(char *command)
 		int angleNum = 2;
 		int whereNum = 3;
 		int rankNum = getShotCount(&GameState);
-
+		ofstream ofs;
+		ofs.open("C:\\Users\\ahara\\Desktop\\CurlingAI\\Debug\\allLogsVer2.csv", ios::app);
+		for (int i = 0; i < 16; i++) {
+			ofs << GameState.body[i][0] << "," << GameState.body[i][1];
+			if (i != 15)ofs << ",";
+			else ofs << endl;
+		}
 		for (int r = 0; r < rankNum; r++) {
-			//string v = getVectorofStone(&GameState, r);
-			//string fileName = "C:\\Users\\81802\\Desktop\\CurlingAI\\Debug\\vec" + v + ".csv";
-			//cerr << v << "‚É‘‚«ž‚ñ‚¾" << endl;
 			int stoneNo = getStoneNOfromRank(&GameState, r);
 			int isMine = 0;
 			if (stoneNo % 2 == GameState.WhiteToMove)isMine = 0;
 			else isMine = 1;
+			ofs << stoneNo << endl;
 			for (int p = 0; p < powerNum; p++) {
 				for (int a = 0; a < angleNum; a++) {
 					for (int w = 0; w < whereNum; w++) {
-						takeStone(&GameState, &vec, r, power[p], angle[a], where[w]);
-						GAMESTATE pGameState = GameState;
-						Simulation(&pGameState, vec, 0.30f, NULL, -1);
-						ofstream ofs;
-						/*
-						int allScore = getBoardScore(&pGameState);
-						ofs.open(fileName, ios::app);
-						ofs <<getMyStoneNum(&GameState) <<","<< getOpoStoneNum(&GameState) <<","<<isMine<<","<<v<<","<< where[w] << "," << angle[a] << "," << power[p] << "," << allScore << endl;
-						ofs.close();
-						*/
-						ofs.open("C:\\Users\\ahara\\Desktop\\CurlingAI\\Debug\\allLogs.csv", ios::app);
-						for (int i = 0; i < 16; i++) {
-							ofs << GameState.body[i][0] << "," << GameState.body[i][1] << ",";
+						ofs << w << "," << a << "," << power[p] << endl;
+						for (int count = 0; count < 10; count++) {
+							takeStone(&GameState, &vec, r, power[p], angle[a], where[w]);
+							GAMESTATE pGameState = GameState;
+							Simulation(&pGameState, vec, 0.30f, NULL, -1);
+							for (int i = 0; i < 16; i++) {
+								if (i != 15)ofs << pGameState.body[i][0] << "," << pGameState.body[i][1] << ",";
+								else ofs << pGameState.body[i][0] << "," << pGameState.body[i][1] << "," << stoneNo << endl;
+							}
 						}
-						ofs << where[w] << "," << angle[a] << "," << power[p] << ",";
-						for (int i = 0; i < 16; i++) {
-							if (i != 15)ofs << pGameState.body[i][0] << "," << pGameState.body[i][1] << ",";
-							else ofs << pGameState.body[i][0] << "," << pGameState.body[i][1] << "," << stoneNo << endl;
-						}
-						ofs.close();
 					}
 				}
 			}
 		}
+		ofs.close();
 //---------------------------------------------------------------------------------------------------------------------
 	
 		//takeStone(&GameState, &vec, 0, 16, 0, 0);

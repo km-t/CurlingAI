@@ -1,0 +1,12 @@
+﻿0~15:rank 16
+16~23:x 8
+24~35:y 12
+36~41:dist 6
+42:isMine 1
+43~54:degree 12
+55:isGuarded 1
+56:isMyGuard 1
+57~71:canGuard 15
+72:isFreezed 1
+73:isMyFreeze 1
+74~88:canFreezed 15

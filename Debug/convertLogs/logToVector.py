@@ -70,7 +70,10 @@ def outBoard(board):
 
 def getDist(stone):
     ans = math.sqrt((stone[0]-2.375)**2 + (stone[1]-4.88)**2)
-    return ans
+    if stone[0]+stone[1] == 0:
+        return 999999999
+    else:
+        return ans
 
 
 def getDegree(x, y):
@@ -85,13 +88,14 @@ def getVector(board, target, isMine):
     11~22:y
     23~28:dist
     29:isMine
-    30,31:isGuarded
-    32~44:angle
+    30~41:angle
     """
     ans = ""
     rank = getRank(board, target)
     x = board[target*2]
     y = board[target*2+1]
+    if x+y == 0:
+        return "111111111111111111111111111111111111111111"
 
     degree = getDegree(x, y)
     dist = getDist([x, y])
@@ -164,84 +168,6 @@ def getVector(board, target, isMine):
         ans += "000001"
     else:
         ans += "000000"
-
-    if target % 2 == isMine:
-
-    if rank == 0:
-        ans += "100"
-    elif rank == 1:
-        ans += "010"
-    elif rank == 2:
-        ans += "001"
-    else:
-        ans += "000"
-
-    if x < 2.375-1.83:
-        ans += "10000000"
-    elif 2.375-1.83 <= x < 2.375-1.22:
-        ans += "01000000"
-    elif 2.375-1.22 <= x < 2.375-0.61:
-        ans += "00100000"
-    elif 2.375-0.61 <= x < 2.375:
-        ans += "00010000"
-    elif 2.375 <= x < 2.375+0.61:
-        ans += "00001000"
-    elif 2.375+0.61 <= x < 2.375+1.22:
-        ans += "00000100"
-    elif 2.375+1.22 <= x < 2.375+1.83:
-        ans += "00000010"
-    elif 2.375+1.83 <= x:
-        ans += "00000001"
-    else:
-        ans += "00000000"
-
-    if y < 4.88-1.83:
-        ans += "100000000000"
-    elif 4.88-1.83 <= y < 4.88-1.22:
-        ans += "010000000000"
-    elif 4.88-1.22 <= y < 4.88-0.61:
-        ans += "001000000000"
-    elif 4.88-0.61 <= y < 4.88:
-        ans += "000100000000"
-    elif 4.88 <= y < 4.88+0.61:
-        ans += "000010000000"
-    elif 4.88+0.61 <= y < 4.88+1.22:
-        ans += "000001000000"
-    elif 4.88+1.22 <= y < 4.88+1.83:
-        ans += "000000100000"
-    elif 4.88+1.83 <= y < 4.88+2.68:
-        ans += "000000010000"
-    elif 4.88+2.68 <= y < 4.88+3.53:
-        ans += "000000001000"
-    elif 4.88+3.53 <= y < 4.88+4.38:
-        ans += "000000000100"
-    elif 4.88+4.38 <= y < 4.88+5.23:
-        ans += "000000000010"
-    elif 4.88+5.23 <= y:
-        ans += "000000000001"
-    else:
-        ans += "000000000000"
-
-    if dist < 0.61:
-        ans += "100000"
-    elif 0.61 <= dist < 1.22:
-        ans += "010000"
-    elif 1.22 <= dist < 1.83:
-        ans += "001000"
-    elif 1.83 <= dist < 3.05:
-        ans += "000100"
-    elif 3.05 <= dist < 4.27:
-        ans += "000010"
-    elif 4.27 <= dist < 5.49:
-        ans += "000001"
-    else:
-        ans += "000000"
-
-    if isGuarded:
-        ans += "1"
-    else:
-        ans += "0"
-
     if target % 2 == isMine:
         ans += "1"
     else:
@@ -328,6 +254,7 @@ def getScore(board, turn):
 
 
 df = pd.read_csv("./allLogs.csv", header=None)
+df = df.drop_duplicates()
 with open("./logs.csv", 'w') as f:
     f.write("")
 """
@@ -349,7 +276,7 @@ for line in tqdm(range(len(df))):
     for i in range(32):
         preBoard.append(float(df.iloc[line, i]))
         nextBoard.append(float(df.iloc[line, i+35]))
-   if isGuarded(preBoard, target, a):
+    if isGuarded(preBoard, target, a):
         pass
     else:
         for i in range(2):
@@ -360,14 +287,10 @@ for line in tqdm(range(len(df))):
             ans = str(vec)+","+str(w)+","+str(a)+","+str(p)+","+str(score)+"\n"
             with open("./logs.csv", 'a') as f:
                 f.write(ans)
-   for i in range(2):
-        isMine = i
-        vec = getVector(preBoard, target, isMine)
-        score = getScore(nextBoard, isMine)-getScore(preBoard, isMine)
+    count += 1
+    with open("./count.txt", "w")as ff:
+        ff.write(str(count))
 
-        ans = str(vec)+","+str(w)+","+str(a)+","+str(p)+","+str(score)+"\n"
-        with open("./logs.csv", 'a') as f:
-            f.write(ans)
-            count += 1
-            with open("./count.txt", "w")as ff:
-                ff.write(str(count))
+df = pd.read_csv("./logs.csv", header=None)
+df = df.drop_duplicates()
+df.to_csv('./logs.csv', header=False, index=False)
